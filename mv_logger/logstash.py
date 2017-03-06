@@ -12,16 +12,13 @@ class Formatter(LogstashFormatterVersion1):
             '@version': '1',
             'host': self.host,
             'pathname': record.pathname,
-            'tags': self.tags,
-            'msg': record.getMessage(),
-
+            'tags2': self.tags,
+            'message': record.getMessage(),
             # Extra Fields
             'level': record.levelname,
             'logger_name': record.name,
+            'extra': self.get_extra_fields(record)
         }
-
-        # Add extra fields
-        message.update(self.get_extra_fields(record))
 
         # If exception, add debug info
         if record.exc_info:
