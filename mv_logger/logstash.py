@@ -4,7 +4,6 @@ from logstash.formatter import LogstashFormatterVersion1
 
 
 class Formatter(LogstashFormatterVersion1):
-
     def format(self, record):
         # Create message dict
         message = {
@@ -17,7 +16,7 @@ class Formatter(LogstashFormatterVersion1):
             # Extra Fields
             'level': record.levelname,
             'logger_name': record.name,
-            'extra': {str(k): str(v) for k, v in self.get_extra_fields(record)}
+            'ex': self.get_extra_fields(record),
         }
 
         # If exception, add debug info
