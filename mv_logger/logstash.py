@@ -17,7 +17,7 @@ class Formatter(LogstashFormatterVersion1):
             # Extra Fields
             'level': record.levelname,
             'logger_name': record.name,
-            'extra': self.get_extra_fields(record)
+            'extra': {str(k): str(v) for k, v in self.get_extra_fields(record)}
         }
 
         # If exception, add debug info
