@@ -1,9 +1,16 @@
 from __future__ import absolute_import
 
+import sys
 from logstash.formatter import LogstashFormatterVersion1
 
 
 class Formatter(LogstashFormatterVersion1):
+    def _stringify(self, s):
+        if isinstance(s, unicode):
+            s = s.decode('utf-8', 'ignore')
+
+        return str(s)
+
     def format(self, record):
         # Create message dict
         message = {
@@ -16,7 +23,7 @@ class Formatter(LogstashFormatterVersion1):
             # Extra Fields
             'level': record.levelname,
             'logger_name': record.name,
-            'ex': self.get_extra_fields(record),
+            'ex': {k: self._stringify(v) for k, v in self.get_extra_fields(record).iteritems()},
         }
 
         # If exception, add debug info
