@@ -23,6 +23,8 @@ class Formatter(LogstashFormatterVersion1):
             # Extra Fields
             'level': record.levelname,
             'logger_name': record.name,
+            'process': record.process,
+            'thread': record.thread,
             'ex': {k: self._stringify(v) for k, v in self.get_extra_fields(record).iteritems()},
         }
 
