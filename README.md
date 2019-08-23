@@ -27,7 +27,7 @@ To use in django:
                 'class': 'logging.FileHandler',
                 'formatter': 'logstash',
                 'level': 'INFO',
-                'filename': '/var/log/app.log,
+                'filename': '/var/log/app.log',
             },
         },
     }
