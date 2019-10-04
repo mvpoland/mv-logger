@@ -7,7 +7,7 @@ install_requires = [
 
 setup(
     name="mv-logger",
-    version='0.1.0',
+    version='0.1.1',
     license='MIT',
     author_email='kontakt@mobilevikings.pl',
     author='Mobile Vikings PL',
