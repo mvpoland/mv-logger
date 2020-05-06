@@ -1,4 +1,4 @@
-from __future__ import absolute_import
+from __future__ import absolute_import, unicode_literals
 
 import sys
 
@@ -8,7 +8,10 @@ from logstash_async.formatter import DjangoLogstashFormatter
 class Formatter(DjangoLogstashFormatter):
     def _stringify(self, s):
         if isinstance(s, unicode):
-            s = s.decode('utf-8', 'ignore')
+            try:
+                s = s.decode('utf-8', 'ignore')
+            except AttributeError:
+                pass
 
         return str(s)
 
