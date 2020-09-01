@@ -1,5 +1,7 @@
 from __future__ import absolute_import, unicode_literals
 
+from builtins import str
+from past.builtins import basestring
 import sys
 
 from logstash_async.formatter import DjangoLogstashFormatter
@@ -7,7 +9,7 @@ from logstash_async.formatter import DjangoLogstashFormatter
 
 class Formatter(DjangoLogstashFormatter):
     def _stringify(self, s):
-        if isinstance(s, unicode):
+        if isinstance(s, str):
             try:
                 s = s.decode('utf-8', 'ignore')
             except AttributeError:
@@ -27,11 +29,11 @@ class Formatter(DjangoLogstashFormatter):
         )
 
         if sys.version_info < (3, 0):
-            easy_types = (basestring, bool, dict, float, int, long, list, type(None))
+            easy_types = (basestring, bool, dict, float, int, list, type(None))
         else:
             easy_types = (str, bool, dict, float, int, list, type(None))
 
-        for key, value in record.__dict__.items():
+        for key, value in list(record.__dict__.items()):
             if key not in skip_list:
                 if isinstance(value, easy_types):
                     fields[key] = value
@@ -52,6 +54,6 @@ class Formatter(DjangoLogstashFormatter):
             'level': record.levelname,
             'process': record.process,
             'thread': record.thread,
-            'ex': {k: self._stringify(v) for k, v in self._get_extra_fields(record).iteritems()},
+            'ex': {k: self._stringify(v) for k, v in self._get_extra_fields(record).items()},
         }
         return self._serialize(message)
