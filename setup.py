@@ -1,13 +1,13 @@
 from setuptools import setup, find_packages
 
 install_requires = [
-    'python-logstash-async==1.5.1',
+    'python-logstash-async==2.0.0',
 ]
 
 
 setup(
     name="mv-logger",
-    version='0.2.0',
+    version='1.0.0',
     license='MIT',
     author_email='kontakt@mobilevikings.pl',
     author='Mobile Vikings PL',

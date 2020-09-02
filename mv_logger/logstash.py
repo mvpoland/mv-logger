@@ -1,8 +1,6 @@
 from __future__ import absolute_import, unicode_literals
 
 from builtins import str
-from past.builtins import basestring
-import sys
 
 from logstash_async.formatter import DjangoLogstashFormatter
 
@@ -28,10 +26,7 @@ class Formatter(DjangoLogstashFormatter):
             'auth_token', 'password'
         )
 
-        if sys.version_info < (3, 0):
-            easy_types = (basestring, bool, dict, float, int, list, type(None))
-        else:
-            easy_types = (str, bool, dict, float, int, list, type(None))
+        easy_types = (str, bool, dict, float, int, list, type(None))
 
         for key, value in list(record.__dict__.items()):
             if key not in skip_list:
