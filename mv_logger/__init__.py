@@ -1,3 +1,1 @@
-from __future__ import absolute_import
-
-from .logstash import Formatter as LogstashFormatter
+from mv_logger.logstash import Formatter as LogstashFormatter
