@@ -1,7 +1,3 @@
-from __future__ import absolute_import, unicode_literals
-
-from builtins import str
-
 from logstash_async.formatter import DjangoLogstashFormatter
 
 
@@ -9,7 +5,7 @@ class Formatter(DjangoLogstashFormatter):
     def _stringify(self, s):
         if isinstance(s, str):
             try:
-                s = s.decode('utf-8', 'ignore')
+                s = s.decode("utf-8", "ignore")
             except AttributeError:
                 pass
 
@@ -19,11 +15,32 @@ class Formatter(DjangoLogstashFormatter):
         fields = super(Formatter, self)._get_extra_fields(record)
 
         skip_list = (
-            'args', 'asctime', 'created', 'exc_info', 'exc_text', 'filename',
-            'funcName', 'id', 'levelname', 'levelno', 'lineno', 'module',
-            'msecs', 'msecs', 'message', 'msg', 'name', 'pathname', 'process',
-            'processName', 'relativeCreated', 'thread', 'threadName', 'extra',
-            'auth_token', 'password'
+            "args",
+            "asctime",
+            "created",
+            "exc_info",
+            "exc_text",
+            "filename",
+            "funcName",
+            "id",
+            "levelname",
+            "levelno",
+            "lineno",
+            "module",
+            "msecs",
+            "msecs",
+            "message",
+            "msg",
+            "name",
+            "pathname",
+            "process",
+            "processName",
+            "relativeCreated",
+            "thread",
+            "threadName",
+            "extra",
+            "auth_token",
+            "password",
         )
 
         easy_types = (str, bool, dict, float, int, list, type(None))
@@ -40,15 +57,17 @@ class Formatter(DjangoLogstashFormatter):
     def format(self, record):
         # Create message dict
         message = {
-            '@timestamp': self._format_timestamp(record.created),
-            '@version': '1',
-            'host': self._host,
-            'tags2': self._tags,
-            'message': record.getMessage(),
+            "@timestamp": self._format_timestamp(record.created),
+            "@version": "1",
+            "host": self._host,
+            "tags2": self._tags,
+            "message": record.getMessage(),
             # Extra Fields
-            'level': record.levelname,
-            'process': record.process,
-            'thread': record.thread,
-            'ex': {k: self._stringify(v) for k, v in self._get_extra_fields(record).items()},
+            "level": record.levelname,
+            "process": record.process,
+            "thread": record.thread,
+            "ex": {
+                k: self._stringify(v) for k, v in self._get_extra_fields(record).items()
+            },
         }
         return self._serialize(message)

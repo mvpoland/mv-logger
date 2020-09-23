@@ -7,9 +7,7 @@ from mv_logger.logstash import Formatter
 
 class FormatterTestCase(unittest.TestCase):
     def test_format(self):
-        record = logging.LogRecord(
-            "test", "INFO", "/tmp", 1, "I'm, dummy", [], None
-        )
+        record = logging.LogRecord("test", "INFO", "/tmp", 1, "I'm, dummy", [], None)
         formatter = Formatter()
 
         formatted = formatter.format(record)
